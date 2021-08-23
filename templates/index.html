@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>AI Handwriting Recognition</title><!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"/>
+
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h4 class="jumbotronHeading" style="text-align:center"><b>AI Handwriting Recognition</b> </h4>
+        <label for="selectModel">Choose an AI model:</label>
+        <select name="selectModel" id="selectModel">
+            <option value="basic">basic</option>
+            <option value="intermediate-I">intermediate-I</option>
+            <option value="intermediate-II">intermediate-II</option>
+            <option value="advanced" selected>advanced</option>
+        </select>
+        <br>Slide to change brush width: <span id="sliderValue"></span>
+        <div class="brushSelect"><input id="myRange" type="range" min="10" max="50" value="12" /></div>
+
+        <br>Draw a digit in the box
+        <div class="canvasDiv">
+            <canvas id="canvas" width="280" height="280" style="padding-bottom: 20px">Canvas</canvas>
+            <br/>
+            <p style="text-align:center;">
+                <a class="btn btn-warning myButton" href="#" id="predictButton" role="button">Recognize</a>
+                <a class="btn btn-success" href="#" id="clearButton" role="button">Redraw</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <p id="result">AI hard thinking fun</p>
+    </div>
+    <footer class="footer">
+        <p>AI in special 2021</p>
+    </footer>
+</div>
+<!-- /container -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static',filename='index.js') }}"></script>
+<script type="text/javascript">
+        var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        var modelChoice = document.getElementById("selectModel");
+        var resultObj = document.getElementById("result");
+
+		$(".myButton").click(function(e) {
+			e.preventDefault();
+			var canvasObj = document.getElementById("canvas");
+			var img = canvasObj.toDataURL();
+			resultObj.innerHTML = ' Thinking hard ... ';
+			$.ajax({
+				type: "POST",
+				url: $SCRIPT_ROOT + "/predict/",
+				data: img,
+				success: function(result){
+				  <!-- $('#result').innerHTML = ' Recognized as : <b style="color: blue">'+result+'</b>'; -->
+					resultObj.innerHTML = ' Recognized as: <b style="color: blue">'+ result +'</b>';
+				}
+			});
+		});
+
+        modelChoice.onchange = function() {
+            var x = document.getElementById("selectModel").value;
+            $.ajax({
+				type: "POST",
+				url: $SCRIPT_ROOT + "/changemodel/",
+				data: x,
+				success: function(result){
+				    resultObj.innerHTML = ' You selected the <b style="color: blue">'+ result + '</b> model';
+				}
+			});
+        };
+</script>
+</body>
+</html>
