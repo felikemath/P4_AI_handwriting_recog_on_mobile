@@ -13,124 +13,137 @@ import time
 import os
 
 
-# BUild a basic model
+# Build the basic model
 def build_basic_model(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='1st_layer_Conv2D'))
-    model.add(MaxPooling2D(pool_size=(2, 2), name='myMP1'))
+    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='Conv1'))
+    model.add(MaxPooling2D(pool_size=(2, 2), name='MP1'))
 
-    model.add(Conv2D(32, 5, activation='relu', name='myconv2'))
-    model.add(MaxPooling2D(pool_size=(2,2), name='myMP2'))
+    model.add(Conv2D(32, 5, activation='relu', name='conv2'))
+    model.add(MaxPooling2D(pool_size=(2,2), name='MP2'))
 
-    model.add(Flatten(name='myFlatten'))
-    model.add(Dense(128, activation='relu', name='myDense1'))
-    model.add(Dense(num_classes, activation='softmax', name='myDense2'))
+    model.add(Flatten(name='Flatten'))
+    model.add(Dense(128, activation='relu', name='Dense1'))
+    model.add(Dense(num_classes, activation='softmax', name='Dense2'))
     return model
 
 
-# BUild an intermediate model
+# Build the intermediate-I model
 def build_intermediate_model1(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='myConv1'))
-    model.add(BatchNormalization(name='myBN1'))
-    model.add(MaxPooling2D(pool_size=(2, 2), name='myMP1'))
+    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='Conv1'))
+    model.add(BatchNormalization(name='BN1'))
+    model.add(MaxPooling2D(pool_size=(2, 2), name='MP1'))
 
-    model.add(Conv2D(32, 5, activation='relu', name='myConv2'))
-    model.add(BatchNormalization(name='myBN2'))
-    model.add(MaxPooling2D(pool_size=(2, 2), name='myMP2'))
+    model.add(Conv2D(32, 5, activation='relu', name='Conv2'))
+    model.add(BatchNormalization(name='BN2'))
+    model.add(MaxPooling2D(pool_size=(2, 2), name='MP2'))
 
-    model.add(Flatten(name='myFlatten'))
-    model.add(Dense(128, activation='relu', name='myDense1'))
-    model.add(BatchNormalization(name='myBN3'))
-    model.add(Dense(num_classes, activation='softmax', name='myDense2'))
+    model.add(Flatten(name='Flatten'))
+    model.add(Dense(128, activation='relu', name='Dense1'))
+    model.add(BatchNormalization(name='BN3'))
+    model.add(Dense(num_classes, activation='softmax', name='Dense2'))
     return model
 
 
+# Build the intermediate-II model
 def build_intermediate_model2(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='myConv1'))
-    model.add(BatchNormalization(name='myBN1'))
-    model.add(MaxPooling2D(pool_size=(2, 2), name='myMP1'))
-    model.add(Dropout(0.25, name='myDropout1'))
+    model.add(Conv2D(32, 5, activation='relu', input_shape=input_shape, name='Conv1'))
+    model.add(BatchNormalization(name='BN1'))
+    model.add(MaxPooling2D(pool_size=(2, 2), name='MP1'))
+    model.add(Dropout(0.25, name='Dropout1'))
 
-    model.add(Conv2D(32, 5, activation='relu', name='myConv2'))
-    model.add(BatchNormalization(name='myBN2'))
-    model.add(MaxPooling2D(pool_size=(2, 2), name='myMP2'))
-    model.add(Dropout(0.25, name='myDropout2'))
+    model.add(Conv2D(32, 5, activation='relu', name='Conv2'))
+    model.add(BatchNormalization(name='BN2'))
+    model.add(MaxPooling2D(pool_size=(2, 2), name='MP2'))
+    model.add(Dropout(0.25, name='Dropout2'))
 
-    model.add(Flatten(name='myFlatten'))
-    model.add(Dense(128, activation='relu', name='myDense1'))
-    model.add(BatchNormalization(name='myBN3'))
-    model.add(Dropout(0.5, name='myDropout3'))
-    model.add(Dense(num_classes, activation='softmax', name='myDense2'))
+    model.add(Flatten(name='Flatten'))
+    model.add(Dense(128, activation='relu', name='Dense1'))
+    model.add(BatchNormalization(name='BN3'))
+    model.add(Dropout(0.5, name='Dropout3'))
+    model.add(Dense(num_classes, activation='softmax', name='Dense2'))
     return model
 
 
-# BUild an advanced model
+# Build the advanced model
 def build_advanced_model(input_shape, num_classes):
     model = Sequential()
-    model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=input_shape, name='myConv1'))  # 32
-    model.add(BatchNormalization(name='myBN1'))
-    model.add(Conv2D(64, kernel_size=3, activation='relu', name='myConv2'))
-    model.add(BatchNormalization(name='myBN2'))
-    model.add(Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu', name='myConv3'))
-    model.add(BatchNormalization(name='myBN3'))
-    model.add(Dropout(0.4, name='myDropout1'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu', input_shape=input_shape, name='Conv1'))
+    model.add(BatchNormalization(name='BN1'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu', name='Conv2'))
+    model.add(BatchNormalization(name='BN2'))
+    model.add(Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu', name='Conv3'))
+    model.add(BatchNormalization(name='BN3'))
+    model.add(Dropout(0.4, name='Dropout1'))
 
-    model.add(Conv2D(64, kernel_size=3, activation='relu', name='myConv4'))
-    model.add(BatchNormalization(name='myBN4'))
-    model.add(Conv2D(64, kernel_size=3, activation='relu', name='myConv5'))
-    model.add(BatchNormalization(name='myBN5'))
-    model.add(Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu', name='myConv6'))
-    model.add(BatchNormalization(name='myBN6'))
-    model.add(Dropout(0.4, name='myDropout2'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu', name='Conv4'))
+    model.add(BatchNormalization(name='BN4'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu', name='Conv5'))
+    model.add(BatchNormalization(name='BN5'))
+    model.add(Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu', name='Conv6'))
+    model.add(BatchNormalization(name='BN6'))
+    model.add(Dropout(0.4, name='Dropout2'))
 
-    model.add(Flatten(name='myFlatten1'))
-    model.add(Dense(128, activation='relu', name='myDense1'))
-    model.add(BatchNormalization(name='myBN7'))
-    model.add(Dropout(0.4, name='myDropout3'))
-    model.add(Dense(num_classes, activation='softmax', name='myDense2'))
+    model.add(Flatten(name='Flatten1'))
+    model.add(Dense(128, activation='relu', name='Dense1'))
+    model.add(BatchNormalization(name='BN7'))
+    model.add(Dropout(0.4, name='Dropout3'))
+    model.add(Dense(num_classes, activation='softmax', name='Dense2'))
     return model
 
 
-def get_callbacks_list(add_checpoint: bool = False):
-    schdler = LearningRateScheduler(lambda x: 1e-3 * 0.95 ** x, verbose=0)
+def get_callbacks_list(model_name, add_checkpoint: bool = False):
+    schdler = LearningRateScheduler(lambda x: 1e-3 * 0.95 ** x, verbose=1)
     callbacks_list = [schdler]
-    if add_checpoint:
-        checkpoint_filepath=r'checkpoint\mnist3_weights-improvement-{epoch:02d}-{accuracy:.2f}.hdf5'
+    if add_checkpoint:
+        strTmp = 'checkpoint\\{}_model'.format(model_name)
+        checkpoint_filepath = strTmp + r'_{epoch:02d}_{accuracy:.2f}.hdf5'
         checkpoint = ModelCheckpoint(checkpoint_filepath, monitor='accuracy', verbose=1, save_best_only=True, mode='max')
         callbacks_list.append(checkpoint)
     return callbacks_list
 
 
-def main():
-    print("Started generating the basic, intermediate and advanced MNIST models")
+def plot_accuracy(history, labels, title):
+    styles = [':', '-.', '--', '-']
+    n = len(history)
+    fig = plt.figure(figsize=(15, 10))
+    ax = plt.axes(ylim=(0.97, 1.0), xlabel='Epoch', ylabel='Validation accuracy')
+    for i in range(n):
+        plt.plot(history[i].history['val_accuracy'], linestyle=styles[i])
+    plt.title(title)
+    plt.legend(labels, loc='upper left')
+    plt.show()
 
-    tf.device("/gpu:0")  # "/cpu:0"
-    np.random.seed(1234)
+
+def main():
+    print("Started to build the basic, intermediate and advanced models")
+
+    gpu_available = tf.test.is_gpu_available()
+    if gpu_available:
+        tf.device("/gpu:0")
+    else:
+        tf.device("/cpu:0")
+    np.random.seed(555)
 
     # -------------------------- load data -----------------------------
-    input_shape = (28, 28, 1)  # K.image_data_format() = 'channels_last'
+    input_shape = (28, 28, 1)  # 'channel_last'
     num_classes = 10
 
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    print(x_train.shape)
-    # plt.imshow(x_train[0], cmap='gray')
+    print(x_train.shape, y_train.shape)
     x_train = x_train.reshape(-1, *input_shape).astype("float32") / 255
     x_test  = x_test.reshape(-1, *input_shape).astype("float32") / 255
-    print(x_train.shape)
-    print(y_train.shape)
-    # print(y_train[:10])
+    print(x_train.shape, y_train.shape)
     y_train = to_categorical(y_train, num_classes=10)
     y_test = to_categorical(y_test, num_classes=10)
     print(x_train.shape, y_train.shape)
-    # CREATE VALIDATION SET ------
+    # split the dataset into two subsets: one for training and the other for validation ------
     X_train2, X_val2, Y_train2, Y_val2 = train_test_split(x_train, y_train, test_size=1/3)
 
-    # Model training
     batch_size = 64
     epochs = 35
-    callbacks_list = get_callbacks_list()
 
     num_models = 4
     history = [0] * num_models
@@ -143,19 +156,21 @@ def main():
     models[2] = build_intermediate_model2(input_shape, num_classes)
     models[3] = build_advanced_model(input_shape, num_classes)
 
+    # train the models one by one
     for i in range(num_models):
 
+        callbacks_list = get_callbacks_list(model_names[i], add_checkpoint=False)
+
         save_model_fname = r'model\mnist_{}_model_batchsize{}_epoch{}.h5'.format(model_names[i], batch_size, epochs)
-        if os.path.isfile(save_model_fname):
-            models[i] = load_model(r'.\model\model_mnist_expt5_test4_batchsize64_epoch35_BN_DO_DA.h5')
-        else:
-            # configure the learning process by doing compile the model
+        if os.path.isfile(save_model_fname):  # previously trained
+            models[i] = load_model(save_model_fname)
+        else:  # new training
             models[i].compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-            # print model summary
+            # print model summary information
             print(models[i].summary())
 
-            # training the models
+            # training this model
             start_time = time.time()
             if i < num_models - 1:
                 history[i] = models[i].fit(X_train2, Y_train2,
@@ -165,7 +180,7 @@ def main():
                                            callbacks=callbacks_list,
                                            verbose=0)
             else:
-                # Data augmentation
+                # using Data Augmentation
                 datagen = ImageDataGenerator(rotation_range=10,
                                              width_shift_range=0.1,
                                              height_shift_range=0.1,
@@ -173,7 +188,6 @@ def main():
                                              horizontal_flip=False,
                                              vertical_flip=False)
 
-                # fit_generator
                 history[i] = models[i].fit(datagen.flow(X_train2, Y_train2, batch_size=batch_size),
                                            epochs=epochs,
                                            validation_data=(X_val2, Y_val2),
@@ -186,30 +200,13 @@ def main():
                   .format(model_names[i], epochs, max(history[i].history['accuracy']),
                           max(history[i].history['val_accuracy']), end_time - start_time))
 
-            # plt.plot(history[i].history['accuracy'])
-            # plt.show(block=False)
-
         test_score = models[i].evaluate(x_test, y_test, verbose=0)
         test_scores.append(test_score)
 
         print('{} model: Epochs={:d}, Test loss: {}, Test accuracy: {}'
               .format(model_names[i], epochs, test_scores[i][0], test_scores[i][1]))
 
-
-
-
-
-    # PLOT ACCURACIES
-    styles = [':', '-.', '--', '-']
-    fig= plt.figure(figsize=(15, 10))
-    ax = plt.axes(ylim=(0.97, 1.0), xlabel='Epoch', ylabel='Validation accuracy')
-    for i in range(num_models):
-        plt.plot(history[i].history['val_accuracy'], linestyle=styles[i])
-    plt.title('Comparison of valiation accuracy of models')
-    plt.legend(model_names, loc='upper left')
-    plt.show()
-
-    print('Done')
+    plot_accuracy(history, model_names, 'Comparison of validation accuracy of models')
 
 
 if __name__ == '__main__':

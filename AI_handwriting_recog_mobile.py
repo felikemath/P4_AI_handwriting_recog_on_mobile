@@ -51,7 +51,7 @@ def index():
 def predict():
     global selected_model
     # Predict function will be called when the users click  "Recognize" button
-    # on the webpage (transmitted over internet using http with POST method).
+    # on the mobile webpage (transmitted over internet using http with POST method).
     imgDataStr = request.get_data()
     x = parseImageFromInternet(imgDataStr)
     x = x.reshape(1, 28, 28, 1)
@@ -74,4 +74,4 @@ def changemodel():
 
 if __name__ == "__main__":
     # Note: update the host ip address accordingly
-    app.run(host='192.168.1.64', port=8080)
+    app.run(host='192.168.1.82', port=8080)
